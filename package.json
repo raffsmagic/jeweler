@@ -1,7 +1,6 @@
 {
   "name": "jeweler",
   "version": "0.1.0",
-  "private": true,
   "description": "Tiny on-device models that score how likely a copied or typed text is a password, key or code. No network, no dependencies, under a millisecond.",
   "keywords": [
     "password",
@@ -13,6 +12,14 @@
     "privacy"
   ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raffsmagic/jeweler.git"
+  },
+  "homepage": "https://github.com/raffsmagic/jeweler#readme",
+  "bugs": {
+    "url": "https://github.com/raffsmagic/jeweler/issues"
+  },
   "type": "module",
   "sideEffects": false,
   "exports": {
@@ -45,5 +52,8 @@
     "tsx": "^4",
     "typescript": "^5",
     "@types/node": "^22"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

@@ -3,7 +3,7 @@
 Tells you whether a piece of text is a password, key or code: right where your code runs, with nothing sent anywhere.
 
 ```sh
-npm install jeweler        # coming to npm soon
+npm install jeweler
 ```
 
 ```ts
@@ -111,4 +111,4 @@ Everything generated lands in `bench/out/` (gitignored). To run autoresearch fro
 
 ## Publishing
 
-`npm run check`, bump `version` and `CHANGELOG.md`, remove `"private": true` from `package.json` (kept until the first release so nothing publishes by accident), then `npm publish` (`prepack` builds `dist/`).
+`npm run check`, bump `version` and `CHANGELOG.md`, then `npm publish` (`prepack` builds `dist/`).

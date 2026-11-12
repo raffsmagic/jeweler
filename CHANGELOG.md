@@ -3,7 +3,7 @@
 jeweler (the library) and its model are versioned separately. Library versions follow semver;
 the model is v1, v2, ... and a new model ships in a new minor library version.
 
-## 0.1.0 (unreleased): model v1
+## 0.1.0 (2026-11-11): model v1
 
 - First release. `score(text)` and `threshold` with model v1 built in; `score(text, model)` for another model
   file; `gated`, `rawScore`, `parseJewel` and the `Jewel` types; the raw model as `jeweler/model.json`.
