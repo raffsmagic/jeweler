@@ -1,0 +1,9 @@
+node_modules/
+bench/out/
+__pycache__/
+.env*
+.DS_Store
+research/out/
+research/run.log
+dist/
+*.tgz

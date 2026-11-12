@@ -1,0 +1,8 @@
+commit	fp94	fresh94	kb	status	description
+19934d8	0.381250	0.8835	75.9	keep	baseline (Jewel 1 recipe)
+5c22b0f	0.337500	0.8956	85.0	keep	3000 everyday-shaped negatives from loop.py generator with exam words removed
+6be8019	0.268750	0.8916	92.7	keep	boundary markers on and dense features off (loop.py grid boundary_nodense config)
+4bcc7be	1.000000	0.0000	0.0	discard	first run of the human-shaped positives failed limits_ok (peek: a first name in NAMES is an exam word); its numbers were not recorded; amended into d1f3291; row added after review
+d1f3291	0.187500	0.8313	106.0	keep	2000 human-shaped positives (lowercase word+digits name+birth year keyboard walks Capitalized+digits+symbol)
+246cf2f	0.181250	0.8434	101.6	keep	count dataset.ts gated positives twice via sample_weight to restore the pull the human positives halved; fresh94 0.8313 -> 0.8434 only partly recovered
+8c11636	0.175000	0.8594	120.8	keep	1000 machine-shaped positives (random 8-20 chars over letters digits and all ASCII punctuation plus 8-14 alnum) so code symbols stop meaning not-a-password; fresh94 0.8434 -> 0.8594 (random_full_10 24/24 random_full_24 25/25 but memorable_dash 25 -> 22 safari 23 -> 22) bench_neg_fp 10/50 -> 3/50 history94 17 -> 19 of 38; pruning was not the cause (same scores at PRUNE 0 and 0.2)
