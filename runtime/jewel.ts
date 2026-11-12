@@ -151,6 +151,7 @@ function features(text: string, cfg: JewelFeatures): Map<number, number> {
  * name. Everything else is for the app's rules.
  */
 export function gated(text: string): boolean {
+  if (typeof text !== "string") return false;
   const t = pyStrip(text);
   const n = codePoints(t, 64);
   if (n < 8 || n > 64 || WS_ANY.test(t) || /^(https?:\/\/|www\.|\/|~\/)/i.test(t) || t.includes("://")) return false;
@@ -192,6 +193,7 @@ export function parseJewel(json: unknown): Jewel {
 
 /** Probability (0-1) that the text is a password or key, ignoring the gate. For parity checks and tools. */
 export function rawScore(jewel: Jewel, text: string): number {
+  if (typeof text !== "string") throw new TypeError(`jeweler: text must be a string, got ${text === null ? "null" : typeof text}`);
   let z = jewel.bias;
   for (const [k, v] of features(text, jewel.features ?? { ...JEWEL_1_FEATURES, dim: jewel.dim })) z += (jewel.weights[k] ?? 0) * v;
   return 1 / (1 + Math.exp(-z));

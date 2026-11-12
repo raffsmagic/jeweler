@@ -27,9 +27,11 @@ try {
 
   writeFileSync(join(app, "smoke.mjs"), `
 import { score, gated, rawScore, parseJewel, threshold, model } from "jeweler";
-import { createRequire } from "node:module";
-const raw = createRequire(import.meta.url)("jeweler/model.json");
-if (parseJewel(raw).version !== model.version || raw.weights["4"] !== model.weights["4"]) throw new Error("raw JSON and built-in model differ");
+import { readFileSync } from "node:fs";
+const raw = JSON.parse(readFileSync(${JSON.stringify(join(root, "models", "jeweler-v" + "1" + ".json"))}, "utf8"));
+if (parseJewel(raw).version !== model.version || raw.weights["4"] !== model.weights["4"]) throw new Error("repo JSON and built-in model differ");
+if (!Object.isFrozen(model) || !Object.isFrozen(model.weights)) throw new Error("built-in model should be frozen");
+if (score(null) !== null || score(undefined) !== null || score(12345678) !== null || gated(undefined) !== false) throw new Error("non-string input");
 const s = score("kal73mor!Qx");
 if (typeof s !== "number" || s < 0 || s > 1 || threshold !== model.threshold) throw new Error("built-in model");
 if (score("hello world") !== null) throw new Error("gate should skip two words");

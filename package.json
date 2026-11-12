@@ -1,6 +1,6 @@
 {
   "name": "jeweler",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Tiny on-device models that score how likely a copied or typed text is a password, key or code. No network, no dependencies, under a millisecond.",
   "keywords": [
     "password",
@@ -27,7 +27,6 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
-    "./model.json": "./dist/model.json",
     "./package.json": "./package.json"
   },
   "main": "./dist/index.js",

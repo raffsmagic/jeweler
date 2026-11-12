@@ -41,12 +41,13 @@ score("someone@example.com")  // null  an email: leave it to your own rules
 ## Why jeweler
 
 - **Private:** it runs locally. The text never leaves your app or your server to be checked.
-- **Tiny and fast:** about 145 KB, no dependencies, well under a millisecond per check.
-- **Runs anywhere JavaScript runs:** browsers, Node 20+, Deno, Bun, React Native.
+- **Tiny and fast:** adds about 145 KB to your app (58 KB download), no dependencies, about a quarter of a millisecond per check.
+- **Runs anywhere JavaScript runs:** browsers, Node 20+, Deno, Bun, React Native. It's an ES module, so load it with `import`; `require("jeweler")` works only on Node 22.12 and later.
 
 ## What it doesn't do
 
-- It judges single tokens of 8 to 64 characters. Sentences, links, emails, file names and plain numbers return `null`.
+- It judges single tokens of 8 to 64 characters. Sentences, links, emails, file names and plain numbers return `null`, and so does anything that isn't a string (like `null` from a clipboard API).
+- It reads only plain English letters as letters for now. Accents lower the score (`Sommér2026!` 0.84, `Summer2026!` 0.99), and text with no plain letters at all (`ПАРОЛЬ123!`) returns `null`. Model v2 will handle these.
 - Keys with a known prefix (`sk-...`, `AKIA...`, `ghp_...`) and numbers with a checksum (cards) are better caught by exact rules; use a secret scanner alongside it. jeweler is for what those rules miss: passwords people make up and generated ones without a prefix.
 - Passphrases of plain words (`correct-horse-battery-staple`) mostly slip by.
 
@@ -55,7 +56,7 @@ score("someone@example.com")  // null  an email: leave it to your own rules
 jeweler has one model built in, with its own version: today **model v1** (`model.version`). The library and the model are versioned separately:
 
 - **jeweler 0.1.0, 0.1.1, ...** for code changes. The model stays the same.
-- **model v1, v2, ...** when the model gets better. Each one ships in a new jeweler version, noted in [CHANGELOG.md](CHANGELOG.md), and is also published on its own (`models/jeweler-v1.json`, `jeweler/model.json`).
+- **model v1, v2, ...** when the model gets better. Each one ships in a new jeweler version, noted in [CHANGELOG.md](CHANGELOG.md), and the raw model file is in this repo (`models/jeweler-v1.json`).
 
 To stay on one model, pin the jeweler version. To try another model file, pass it in: `score(text, parseJewel(json))`.
 

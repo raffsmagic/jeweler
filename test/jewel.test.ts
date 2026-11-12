@@ -117,3 +117,24 @@ test("jeweler: score(text) uses the newest model; another model can be passed in
   assert.notEqual(lib.score("kal73mor!Qx", older), lib.score("kal73mor!Qx"));
   assert.equal(lib.score("two words"), null);
 });
+
+test("non-string input: score is null, gated is false, rawScore says what's wrong", async () => {
+  const lib = await import("../runtime/index");
+  for (const bad of [null, undefined, 12345678, {}, ["Summer2026!"]] as unknown[]) {
+    assert.equal(lib.score(bad as string), null);
+    assert.equal(lib.gated(bad as string), false);
+    assert.equal(gated(bad as string), false);
+  }
+  assert.throws(() => lib.rawScore(null as unknown as string), /text must be a string, got null/);
+  assert.throws(() => lib.rawScore(newest, undefined as unknown as string), /text must be a string, got undefined/);
+  assert.throws(() => lib.score("Summer2026!", 5 as unknown as Jewel), /must be a model/);
+  assert.equal(lib.score(newest, null as unknown as string), null);
+});
+
+test("the built-in model is frozen", async () => {
+  const lib = await import("../runtime/index");
+  assert.ok(Object.isFrozen(lib.model) && Object.isFrozen(lib.model.weights) && Object.isFrozen(lib.model.features));
+  assert.throws(() => { (lib.model as { threshold: number }).threshold = 0; }, TypeError);
+  assert.throws(() => { (lib.model.weights as Record<string, number>)["4"] = 99; }, TypeError);
+  assert.equal(lib.threshold, newest.threshold);
+});
